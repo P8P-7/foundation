@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * @file core.h
+ * @file foundation.h
  * @author Group 7 - Informatica
  */
 

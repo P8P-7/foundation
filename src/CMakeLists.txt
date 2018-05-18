@@ -6,6 +6,7 @@ set(SOURCES
         repositories/battery_repository.h
         repositories/battery_repository.cpp
         publisher_service.h
+        handle_error.cpp
         )
 
 include_directories(${Boost_INCLUDE_DIR})
@@ -19,9 +20,4 @@ target_link_libraries(${PROJECT_NAME}
         ${Protobuf_LIBRARY}
         ${Boost_LIBRARIES}
         ${CMAKE_THREAD_LIBS_INIT}
-        )
-
-target_include_directories(${PROJECT_NAME}
-        PUBLIC
-            ${CMAKE_SOURCE_DIR}/include
         )
