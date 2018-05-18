@@ -6,6 +6,7 @@ set(SOURCES
         repositories/battery_repository.h
         repositories/battery_repository.cpp
         publisher_service.h
+        handle_error.cpp
         )
 
 include_directories(${Boost_INCLUDE_DIR})

@@ -2,36 +2,42 @@
 
 #include <cstdlib>
 
+#include "handle_error.h"
+
 using namespace goliath::handles;
 
-Handle::Handle()
-        : ownerId{0} {
+Handle::Handle(const size_t &handle_id)
+    : handleId(handle_id) {
 }
 
-Handle::Handle(const Handle& other)
-        : locked(other.isLocked()), ownerId(other.getOwnerId()) {
+Handle::Handle(const Handle &other)
+    : handleId(other.getHandleId()), ownerId(other.ownerId) {
 }
 
-void Handle::lock(const size_t& command_id) {
+void Handle::lock(const size_t& commandId) {
     std::lock_guard<std::mutex> lock(mutex);
+    if (isLocked()) {
+        throw exceptions::HandleError(getHandleId(), "Could not be locked because it was already in use.");
+    }
 
-    locked = true;
-    ownerId = command_id;
+    ownerId = commandId;
 }
 
 void Handle::unlock() {
     std::lock_guard<std::mutex> lock(mutex);
+    if (!isLocked()) {
+        throw exceptions::HandleError(getHandleId(), "Could not be unlocked because it wasn't locked.");
+    }
 
-    locked = false;
     ownerId.reset();
+
     var.notify_one();
 }
 
 void Handle::waitAndLock(const size_t &commandId) {
     std::unique_lock<std::mutex> lock(mutex);
-    var.wait(lock, [&]() { return !locked; });
+    var.wait(lock, [&]() { return !isLocked(); });
 
-    locked = true;
     ownerId = commandId;
 }
 
@@ -43,6 +49,10 @@ const size_t Handle::getOwnerId() const {
     throw std::runtime_error("Owner is not set");
 }
 
+const size_t Handle::getHandleId() const {
+    return handleId;
+}
+
 bool Handle::isLocked() const {
-    return locked;
+    return ownerId.is_initialized();
 }

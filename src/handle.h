@@ -9,18 +9,17 @@
  * @author Group 7 - Informatica
  */
 
-
 namespace goliath::handles {
     class Handle {
     public:
-        Handle();
+        Handle(const size_t &handleId);
         Handle(const Handle &other);
 
         /**
          * @brief Lock the handle.
          * @param commandId the owning command @headerfile handle.h
          */
-        void lock(const size_t& commandId);
+        void lock(const size_t &commandId);
 
         /**
          * @brief Release the handle.
@@ -38,13 +37,15 @@ namespace goliath::handles {
          */
         const size_t getOwnerId() const;
 
+        const size_t getHandleId() const;
+
         /**
          * @brief Indicates whether or not this handle has been locked.
          * @return true if this handle has been locked
          */
         bool isLocked() const;
     private:
-        bool locked = false;
+        const size_t handleId;
 
         boost::optional<size_t> ownerId;
         std::mutex mutex;
