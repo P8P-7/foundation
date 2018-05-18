@@ -18,3 +18,8 @@ find_package(Boost ${BOOST_MIN_VERSION}
 
 add_subdirectory(third_party)
 add_subdirectory(src)
+
+target_include_directories(${PROJECT_NAME}
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        )

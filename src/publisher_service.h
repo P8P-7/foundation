@@ -8,7 +8,7 @@
  */
 
 
-namespace goliath::core::interfaces {
+namespace goliath::foundation {
     class PublisherService {
     public:
         /**
