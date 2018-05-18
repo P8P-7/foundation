@@ -47,7 +47,7 @@ std::vector<std::shared_ptr<Repository>> Watcher::getRepositories() {
     return repositories;
 }
 
-Watcher::Watcher(int polling_rate, core::interfaces::PublisherService &publisher)
+Watcher::Watcher(int polling_rate, foundation::PublisherService &publisher)
     : pollingRate(polling_rate), publisher(publisher), running(false) {
 }
 

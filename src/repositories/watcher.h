@@ -24,7 +24,7 @@ namespace goliath::repositories {
          * @param pollingRate rate at which the watcher thread polls each repository
          * @param publisher service to which the watcher should publish a @see SynchronizeMessage
          */
-        Watcher(int pollingRate, core::interfaces::PublisherService &publisher);
+        Watcher(int pollingRate, foundation::PublisherService &publisher);
         /**
          * @brief Destructs the watcher and calls stop()
          */
@@ -62,7 +62,7 @@ namespace goliath::repositories {
         void stop();
     private:
         int pollingRate;
-        core::interfaces::PublisherService &publisher;
+        foundation::PublisherService &publisher;
         std::vector<std::shared_ptr<Repository>> repositories;
 
         std::atomic<bool> running;
