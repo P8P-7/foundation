@@ -3,7 +3,7 @@
 #include "repository.h"
 
 /**
- * @file vision_repo.h
+ * @file proto_repository.h
  * @author Group 7 - Informatica
  */
 
