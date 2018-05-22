@@ -7,17 +7,17 @@
 using namespace goliath::handles;
 
 Handle::Handle(const size_t &handle_id)
-    : handleId(handle_id) {
+    : id(handle_id) {
 }
 
 Handle::Handle(const Handle &other)
-    : handleId(other.getHandleId()), ownerId(other.ownerId) {
+    : id(other.getId()), ownerId(other.ownerId) {
 }
 
 void Handle::lock(const size_t& commandId) {
     std::lock_guard<std::mutex> lock(mutex);
     if (isLocked()) {
-        throw exceptions::HandleError(getHandleId(), "Could not be locked because it was already in use.");
+        throw exceptions::HandleError(getId(), "Could not be locked because it was already in use.");
     }
 
     ownerId = commandId;
@@ -26,7 +26,7 @@ void Handle::lock(const size_t& commandId) {
 void Handle::unlock() {
     std::lock_guard<std::mutex> lock(mutex);
     if (!isLocked()) {
-        throw exceptions::HandleError(getHandleId(), "Could not be unlocked because it wasn't locked.");
+        throw exceptions::HandleError(getId(), "Could not be unlocked because it wasn't locked.");
     }
 
     ownerId.reset();
@@ -49,8 +49,8 @@ const size_t Handle::getOwnerId() const {
     throw std::runtime_error("Owner is not set");
 }
 
-const size_t Handle::getHandleId() const {
-    return handleId;
+const size_t Handle::getId() const {
+    return id;
 }
 
 bool Handle::isLocked() const {

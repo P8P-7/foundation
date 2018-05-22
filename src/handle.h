@@ -37,7 +37,10 @@ namespace goliath::handles {
          */
         const size_t getOwnerId() const;
 
-        const size_t getHandleId() const;
+        /**
+         * @return handle id as registered
+         */
+        const size_t getId() const;
 
         /**
          * @brief Indicates whether or not this handle has been locked.
@@ -45,7 +48,7 @@ namespace goliath::handles {
          */
         bool isLocked() const;
     private:
-        const size_t handleId;
+        const size_t id;
 
         boost::optional<size_t> ownerId;
         std::mutex mutex;
