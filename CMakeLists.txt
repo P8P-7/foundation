@@ -23,3 +23,6 @@ target_include_directories(${PROJECT_NAME}
         PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/include
         )
+
+configure_file(resources/logo.txt ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/logo.txt COPYONLY)
+configure_file(resources/organization_name.txt ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/organization_name.txt COPYONLY)

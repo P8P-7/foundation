@@ -15,4 +15,5 @@
 #include "../../src/repositories/proto_repository.h"
 #include "../../src/repositories/battery_repository.h"
 #include "../../src/repositories/watcher.h"
+#include "../../src/util/console.h"
 #include "../../src/publisher_service.h"

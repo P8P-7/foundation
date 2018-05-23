@@ -5,6 +5,7 @@ set(SOURCES
         repositories/watcher.cpp
         repositories/battery_repository.h
         repositories/battery_repository.cpp
+        util/console.cpp
         publisher_service.h
         handle_error.cpp
         )
