@@ -7,22 +7,24 @@
 #include <iomanip>
 #include <boost/core/null_deleter.hpp>
 
+#include "foundation_utilities.h"
+
 using namespace goliath::util;
 
 Console::Console(std::function<void(const boost::log::record_view&, boost::log::formatting_ostream&)> formatter,
-                 std::string projectTextFile)
+                 std::string executableLocation, std::string projectTextFile)
     : formatter(formatter) {
 
     std::string logoLine;
-    std::ifstream logo("logo.txt");
+    std::ifstream logo(FoundationUtilities::executableToFile(executableLocation, "logo.txt"));
     std::string organizationLine;
-    std::ifstream organizationText("organization_name.txt");
+    std::ifstream organizationText(FoundationUtilities::executableToFile(executableLocation, "organization_name.txt"));
     std::string projectLine;
     std::ifstream projectText;
 
     bool hasProjectText = !projectTextFile.empty();
     if (hasProjectText) {
-        projectText.open(projectTextFile);
+        projectText.open(FoundationUtilities::executableToFile(executableLocation, projectTextFile));
         hasProjectText = projectText.is_open();
     }
 

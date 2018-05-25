@@ -3,9 +3,10 @@ set(SOURCES
         repositories/proto_repository.h
         repositories/repository.h
         repositories/watcher.cpp
-        repositories/battery_repository.h
         repositories/battery_repository.cpp
+        repositories/config_repo.cpp
         util/console.cpp
+        util/foundation_utilities.cpp
         publisher_service.h
         handle_error.cpp
         )

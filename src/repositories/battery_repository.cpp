@@ -4,7 +4,6 @@
 
 using namespace goliath;
 
-
 std::unique_ptr<::google::protobuf::Message> repositories::BatteryRepository::getMessage() {
     ::BatteryRepository repo;
     repo.set_level(getBatteryLevel());

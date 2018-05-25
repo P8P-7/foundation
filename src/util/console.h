@@ -59,7 +59,7 @@ namespace goliath::util {
          * @param textFile Path to text (right)
          */
         Console(std::function<void(const boost::log::record_view&, boost::log::formatting_ostream&)> formatter,
-                std::string projectTextFile);
+                std::string executableLocation, std::string projectTextFile);
 
         ~Console();
 
