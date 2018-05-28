@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(goliath-foundation-module LANGUAGES CXX)
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+IF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+ENDIF()
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 set(BOOST_MIN_VERSION "1.62.0")
 set(CPPZMQ_MIN_VERSION "4.2.3")
@@ -16,6 +20,8 @@ find_package(Boost ${BOOST_MIN_VERSION}
         REQUIRED
         )
 
+include(protobuf)
+        
 add_subdirectory(third_party)
 add_subdirectory(src)
 

@@ -1,6 +1,4 @@
 ## Protocol Buffers
-include(protobuf)
-
 IF(NOT TARGET goliath-proto)
     file(GLOB_RECURSE PROTOBUF_FILELIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/proto
             "${CMAKE_CURRENT_SOURCE_DIR}/proto/*.proto"
