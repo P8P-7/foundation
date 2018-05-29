@@ -47,6 +47,13 @@ namespace goliath::handles {
          * @return true if this handle has been locked
          */
         bool isLocked() const;
+
+        /**
+         * @brief Checks if this handle is locked for a specific owner
+         * @param ownerId owner to check for
+         * @return true if this handle is locked for ownerId
+         */
+        bool isLocked(size_t ownerId) const;
     private:
         const size_t id;
 

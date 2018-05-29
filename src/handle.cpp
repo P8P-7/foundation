@@ -56,3 +56,7 @@ const size_t Handle::getId() const {
 bool Handle::isLocked() const {
     return ownerId.is_initialized();
 }
+
+bool Handle::isLocked(size_t ownerId) const {
+    return isLocked() && getOwnerId() == ownerId;
+}
