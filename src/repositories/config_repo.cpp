@@ -1,4 +1,4 @@
-#include "config_repo.h"
+#include <goliath/foundation/repositories/config_repo.h>
 
 #include <fstream>
 #include <sstream>

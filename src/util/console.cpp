@@ -1,4 +1,5 @@
-#include "console.h"
+#include <goliath/foundation/util/console.h>
+#include <goliath/foundation/util/foundation_utilities.h>
 
 #include <thread>
 #include <iostream>
@@ -6,8 +7,6 @@
 #include <chrono>
 #include <iomanip>
 #include <boost/core/null_deleter.hpp>
-
-#include "foundation_utilities.h"
 
 using namespace goliath::util;
 

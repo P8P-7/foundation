@@ -21,9 +21,26 @@ find_package(Boost ${BOOST_MIN_VERSION}
         )
 
 include(protobuf)
+include(prepend)
         
 add_subdirectory(third_party)
+add_subdirectory(include/goliath)
 add_subdirectory(src)
+
+include_directories(${Boost_INCLUDE_DIR})
+
+add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES})
+
+add_definitions(-DBOOST_LOG_DYN_LINK)
+
+target_link_libraries(${PROJECT_NAME}
+        PUBLIC
+            goliath-proto
+            ${Protobuf_LIBRARY}
+            ${Boost_LIBRARIES}
+            ${CMAKE_THREAD_LIBS_INIT}
+        )
+
 
 target_include_directories(${PROJECT_NAME}
         PUBLIC

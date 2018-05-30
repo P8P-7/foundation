@@ -1,8 +1,7 @@
-#include "handle.h"
+#include <goliath/foundation/handle.h>
+#include <goliath/foundation/handle_error.h>
 
 #include <cstdlib>
-
-#include "handle_error.h"
 
 using namespace goliath::handles;
 

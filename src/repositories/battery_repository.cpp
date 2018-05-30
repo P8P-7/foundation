@@ -1,4 +1,4 @@
-#include "battery_repository.h"
+#include <goliath/foundation/repositories/battery_repository.h>
 
 #include <repositories/BatteryRepository.pb.h>
 

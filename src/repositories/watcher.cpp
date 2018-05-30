@@ -1,4 +1,4 @@
-#include "watcher.h"
+#include <goliath/foundation/repositories/watcher.h>
 
 #include <MessageCarrier.pb.h>
 #include <boost/log/trivial.hpp>

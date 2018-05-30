@@ -1,25 +1,16 @@
-set(SOURCES
-        handle.cpp
-        repositories/proto_repository.h
-        repositories/repository.h
-        repositories/watcher.cpp
+set(RELATIVE_SOURCES
         repositories/battery_repository.cpp
         repositories/config_repo.cpp
+        repositories/watcher.cpp
         util/console.cpp
         util/foundation_utilities.cpp
-        publisher_service.h
+        handle.cpp
         handle_error.cpp
         )
 
-include_directories(${Boost_INCLUDE_DIR})
+prepend(ABSOLUTE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR} ${RELATIVE_SOURCES})
 
-add_library(${PROJECT_NAME} ${SOURCES})
-
-add_definitions(-DBOOST_LOG_DYN_LINK)
-
-target_link_libraries(${PROJECT_NAME}
-        goliath-proto
-        ${Protobuf_LIBRARY}
-        ${Boost_LIBRARIES}
-        ${CMAKE_THREAD_LIBS_INIT}
+set(SOURCES
+        ${ABSOLUTE_SOURCES}
+        PARENT_SCOPE
         )
