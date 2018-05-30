@@ -10,9 +10,9 @@
 
 using namespace goliath::util;
 
-Console::Console(std::function<void(const boost::log::record_view&, boost::log::formatting_ostream&)> formatter,
+Console::Console(std::function<void(const boost::log::record_view &, boost::log::formatting_ostream &)> formatter,
                  std::string executableLocation, std::string projectTextFile)
-    : formatter(formatter) {
+        : formatter(formatter) {
 
     std::string logoLine;
     std::ifstream logo(FoundationUtilities::executableToFile(executableLocation, "logo.txt"));
@@ -66,7 +66,6 @@ Console::Console(std::function<void(const boost::log::record_view&, boost::log::
 }
 
 Console::~Console() {
-    BOOST_LOG_TRIVIAL(fatal) << "Controller has been shut down";
     for (int i = 0; i < 57; ++i) {
         std::cout << "─";
     }
@@ -78,7 +77,7 @@ Console::~Console() {
     }
 }
 
-std::string goliath::util::getColor(const boost::log::trivial::severity_level& severityLevel) {
+std::string goliath::util::getColor(const boost::log::trivial::severity_level &severityLevel) {
     switch (severityLevel) {
         case boost::log::trivial::trace:
             return LOG_COLOR_TRACE;
@@ -97,7 +96,8 @@ std::string goliath::util::getColor(const boost::log::trivial::severity_level& s
     }
 }
 
-void goliath::util::colorConsoleFormatter(const boost::log::record_view& recordView, boost::log::formatting_ostream& formatStream) {
+void goliath::util::colorConsoleFormatter(const boost::log::record_view &recordView,
+                                          boost::log::formatting_ostream &formatStream) {
     auto now = std::chrono::high_resolution_clock::now();
     auto mil = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
     auto mic = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()) % 1000;

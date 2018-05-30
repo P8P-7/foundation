@@ -58,13 +58,13 @@ namespace goliath::util {
          * @param logoFile Path to logo (left)
          * @param textFile Path to text (right)
          */
-        Console(std::function<void(const boost::log::record_view&, boost::log::formatting_ostream&)> formatter,
+        Console(std::function<void(const boost::log::record_view &, boost::log::formatting_ostream &)> formatter,
                 std::string executableLocation, std::string projectTextFile);
 
         ~Console();
 
     private:
-        std::function<void(const boost::log::record_view&, boost::log::formatting_ostream&)> formatter;
+        std::function<void(const boost::log::record_view &, boost::log::formatting_ostream &)> formatter;
 
     };
 
@@ -74,11 +74,11 @@ namespace goliath::util {
      * @param severityLevel Level of severity to display
      * @return Linux terminal color string
      */
-    std::string getColor(const boost::log::trivial::severity_level& severityLevel);
+    std::string getColor(const boost::log::trivial::severity_level &severityLevel);
 
     /**
      * @fn void colorConsoleFormatter(const boost::log::record_view& recordView, boost::log::formatting_ostream& formatStream)
      * @brief Formatter that takes in a message, applies data, thread, severity and a color
      */
-    void colorConsoleFormatter(const boost::log::record_view& recordView, boost::log::formatting_ostream& formatStream);
+    void colorConsoleFormatter(const boost::log::record_view &recordView, boost::log::formatting_ostream &formatStream);
 }
