@@ -1,6 +1,5 @@
 set(RELATIVE_SOURCES
-        repositories/battery_repository.cpp
-        repositories/config_repo.cpp
+        repositories/repository.cpp
         repositories/watcher.cpp
         util/console.cpp
         util/foundation_utilities.cpp

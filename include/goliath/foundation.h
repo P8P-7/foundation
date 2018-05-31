@@ -14,8 +14,6 @@
 #include "foundation/handle_error.h"
 #include "foundation/repositories/repository.h"
 #include "foundation/repositories/proto_repository.h"
-#include "foundation/repositories/config_repo.h"
-#include "foundation/repositories/battery_repository.h"
 #include "foundation/repositories/watcher.h"
 #include "foundation/util/console.h"
 #include "foundation/util/foundation_utilities.h"

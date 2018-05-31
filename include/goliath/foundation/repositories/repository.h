@@ -23,23 +23,17 @@ namespace goliath::repositories {
         /**
          * @return true if this repository has been changed
          */
-        virtual bool isInvalidated() {
-            return invalidated;
-        }
+        virtual bool isInvalidated() const;
 
         /**
          * @brief Forces the repository to be synchronized
          */
-        void invalidate() {
-            invalidated = true;
-        }
+        void invalidate();
 
     private:
         friend class Watcher;
 
-        void validate() {
-            invalidated = false;
-        }
+        void validate();
 
         bool invalidated = false;
     };
