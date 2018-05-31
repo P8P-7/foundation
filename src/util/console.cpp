@@ -72,7 +72,6 @@ Console::Console(std::function<void(const boost::log::record_view &, boost::log:
 }
 
 Console::~Console() {
-    BOOST_LOG_TRIVIAL(fatal) << "Controller has been shut down";
     for (int i = 0; i < 57; ++i) {
         std::cout << "─";
     }

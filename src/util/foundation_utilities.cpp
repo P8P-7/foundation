@@ -10,6 +10,6 @@ std::string FoundationUtilities::executablePath(const std::string &executable) {
     return executable;
 }
 
-std::string FoundationUtilities::executableToFile(const std::string& executable, const std::string& file) {
+std::string FoundationUtilities::executableToFile(const std::string &executable, const std::string &file) {
     return executablePath(executable) + file;
 }

@@ -67,7 +67,6 @@ namespace goliath::util {
     private:
         std::function<void(const boost::log::record_view &, boost::log::formatting_ostream &)> formatter;
 
-
     };
 
     boost::log::trivial::severity_level parseSeverityLevel(const std::string &input,
