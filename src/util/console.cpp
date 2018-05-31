@@ -7,12 +7,17 @@
 #include <chrono>
 #include <iomanip>
 #include <boost/core/null_deleter.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
+#include <boost/log/core.hpp>
+#include <boost/algorithm/string.hpp>
 
 using namespace goliath::util;
 
-Console::Console(std::function<void(const boost::log::record_view&, boost::log::formatting_ostream&)> formatter,
-                 std::string executableLocation, std::string projectTextFile)
-    : formatter(formatter) {
+Console::Console(std::function<void(const boost::log::record_view &, boost::log::formatting_ostream &)> formatter,
+                 std::string executableLocation, std::string projectTextFile,
+                 boost::log::trivial::severity_level severityLevel = boost::log::trivial::severity_level::info)
+        : formatter(formatter) {
 
     std::string logoLine;
     std::ifstream logo(FoundationUtilities::executableToFile(executableLocation, "logo.txt"));
@@ -49,6 +54,7 @@ Console::Console(std::function<void(const boost::log::record_view&, boost::log::
     sink->locked_backend()->add_stream(boost::shared_ptr<std::ostream>(&std::cout, boost::null_deleter()));
 
     sink->set_formatter(this->formatter);
+    sink->set_filter(boost::log::trivial::severity >= severityLevel);
 
     boost::log::core::get()->add_sink(sink);
 
@@ -78,7 +84,38 @@ Console::~Console() {
     }
 }
 
-std::string goliath::util::getColor(const boost::log::trivial::severity_level& severityLevel) {
+boost::log::trivial::severity_level goliath::util::parseSeverityLevel(const std::string &input,
+                                                                      boost::log::trivial::severity_level defaultSeverity) {
+    if (input.empty()) {
+        return defaultSeverity;
+    }
+
+    const std::string value = boost::algorithm::to_lower_copy(input);
+
+    if (value == "trace" || value[0] == 't') {
+        return boost::log::trivial::trace;
+    }
+    if (value == "debug" || value[0] == 'd') {
+        return boost::log::trivial::debug;
+    }
+    if (value == "info" || value[0] == 'i') {
+        return boost::log::trivial::info;
+    }
+    if (value == "warning" || value[0] == 'w') {
+        return boost::log::trivial::warning;
+    }
+    if (value == "error" || value[0] == 'e') {
+        return boost::log::trivial::error;
+    }
+    if (value == "fatal" || value[0] == 'f') {
+        return boost::log::trivial::fatal;
+    }
+
+
+    return defaultSeverity;
+}
+
+std::string goliath::util::getColor(const boost::log::trivial::severity_level &severityLevel) {
     switch (severityLevel) {
         case boost::log::trivial::trace:
             return LOG_COLOR_TRACE;
@@ -97,7 +134,8 @@ std::string goliath::util::getColor(const boost::log::trivial::severity_level& s
     }
 }
 
-void goliath::util::colorConsoleFormatter(const boost::log::record_view& recordView, boost::log::formatting_ostream& formatStream) {
+void goliath::util::colorConsoleFormatter(const boost::log::record_view &recordView,
+                                          boost::log::formatting_ostream &formatStream) {
     auto now = std::chrono::high_resolution_clock::now();
     auto mil = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
     auto mic = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()) % 1000;
@@ -116,7 +154,7 @@ void goliath::util::colorConsoleFormatter(const boost::log::record_view& recordV
         severityStream << '(' << severity << ')';
 
         formatStream << std::left << std::setw(9) << severityStream.str() << "├ ";
-        formatStream << getColor(severity.get());
+        formatStream << goliath::util::getColor(severity.get());
     } else {
         formatStream << "├ ";
     }
