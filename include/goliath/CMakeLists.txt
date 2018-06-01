@@ -1,7 +1,5 @@
 set(RELATIVE_INCLUDES
         foundation.h
-        ../../../../controller/include/goliath/controller/repositories/battery_repository.h
-        ../../../../controller/include/goliath/controller/repositories/config_repository.h
         foundation/repositories/proto_repository.h
         foundation/repositories/repository.h
         foundation/repositories/watcher.h
