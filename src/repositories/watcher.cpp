@@ -4,10 +4,11 @@
 #include <boost/log/trivial.hpp>
 
 using namespace goliath::repositories;
+using namespace goliath;
 
 void Watcher::synchronize() {
-    MessageCarrier carrier;
-    SynchronizeMessage *message = new SynchronizeMessage;
+    proto::MessageCarrier carrier;
+    proto::SynchronizeMessage *message = new proto::SynchronizeMessage;
     for (auto repo : repositories) {
         if (!repo->isInvalidated()) {
             continue;
