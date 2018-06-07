@@ -145,7 +145,8 @@ void goliath::util::colorConsoleFormatter(const boost::log::record_view &recordV
 
     formatStream << '[' << CONSOLE_COLOR_GREEN << std::left << std::setw(27) << timeStream.str() << LOG_COLOR_DEFAULT
                  << "] ";
-    formatStream << '<' << CONSOLE_COLOR_CYAN << std::left << std::setw(15) << std::this_thread::get_id() << LOG_COLOR_DEFAULT << "> ";
+    formatStream << '<' << CONSOLE_COLOR_CYAN << std::left << std::setw(15) << std::this_thread::get_id()
+                 << LOG_COLOR_DEFAULT << "> ";
 
     auto severity = recordView.attribute_values()["Severity"].extract<boost::log::trivial::severity_level>();
     if (severity) {
@@ -158,7 +159,15 @@ void goliath::util::colorConsoleFormatter(const boost::log::record_view &recordV
         formatStream << "├ ";
     }
 
-    formatStream << recordView[boost::log::expressions::smessage];
+    std::stringstream newLineFormatter;
+    newLineFormatter << '\n' << std::left << std::setw(57) << ' ' << LOG_COLOR_DEFAULT << '|'
+                     << goliath::util::getColor(severity.get());
+
+    std::string smessage = recordView[boost::log::expressions::smessage].get();
+
+    boost::replace_all(smessage, "\n", newLineFormatter.str());
+
+    formatStream << smessage;
 
     if (severity) {
         formatStream << LOG_COLOR_DEFAULT << CONSOLE_STYLE_RESET;
