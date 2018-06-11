@@ -6,16 +6,14 @@
 using namespace goliath::handles;
 
 Handle::Handle(const size_t &handle_id)
-    : id(handle_id) {
-}
+        : id(handle_id) { }
 
 Handle::Handle(const Handle &other)
-    : id(other.getId()), ownerId(other.ownerId) {
-}
+        : id(other.getId()), ownerId(other.ownerId) { }
 
-void Handle::lock(const size_t& commandId) {
+void Handle::lock(const size_t &commandId) {
     std::lock_guard<std::mutex> lock(mutex);
-    if (isLocked()) {
+    if (ownerId.is_initialized()) {
         throw exceptions::HandleError(getId(), "Could not be locked because it was already in use.");
     }
 
@@ -24,7 +22,7 @@ void Handle::lock(const size_t& commandId) {
 
 void Handle::unlock() {
     std::lock_guard<std::mutex> lock(mutex);
-    if (!isLocked()) {
+    if (!ownerId.is_initialized()) {
         throw exceptions::HandleError(getId(), "Could not be unlocked because it wasn't locked.");
     }
 
@@ -40,8 +38,9 @@ void Handle::waitAndLock(const size_t &commandId) {
     ownerId = commandId;
 }
 
-const size_t Handle::getOwnerId() const {
-    if(ownerId.is_initialized()) {
+const size_t Handle::getOwnerId() {
+    std::lock_guard<std::mutex> lock(mutex);
+    if (ownerId.is_initialized()) {
         return ownerId.get();
     }
 
@@ -52,10 +51,11 @@ const size_t Handle::getId() const {
     return id;
 }
 
-bool Handle::isLocked() const {
+bool Handle::isLocked() {
+    std::lock_guard<std::mutex> lock(mutex);
     return ownerId.is_initialized();
 }
 
-bool Handle::isLocked(size_t ownerId) const {
+bool Handle::isLocked(size_t ownerId) {
     return isLocked() && getOwnerId() == ownerId;
 }
