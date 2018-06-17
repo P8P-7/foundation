@@ -1,6 +1,6 @@
 set(RELATIVE_SOURCES
         repositories/repository.cpp
-        repositories/watcher.cpp
+        repositories/polling_repository.cpp
         util/console.cpp
         util/foundation_utilities.cpp
         handle.cpp
