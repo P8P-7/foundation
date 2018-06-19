@@ -2,6 +2,8 @@
 
 #include <google/protobuf/message.h>
 
+#include <atomic>
+
 /**
  * @file repository.h
  * @author Group 7 - Informatica
@@ -35,6 +37,6 @@ namespace goliath::repositories {
 
         void validate();
 
-        bool invalidated = false;
+        std::atomic<bool> invalidated{false};
     };
 }

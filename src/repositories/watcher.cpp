@@ -8,8 +8,8 @@ using namespace goliath;
 
 void Watcher::synchronize() {
     proto::MessageCarrier carrier;
-    proto::SynchronizeMessage *message = new proto::SynchronizeMessage;
-    for (auto repo : repositories) {
+    auto *message = new proto::SynchronizeMessage;
+    for (const auto &repo : repositories) {
         if (!repo->isInvalidated()) {
             continue;
         }
@@ -25,13 +25,13 @@ void Watcher::synchronize() {
 }
 
 void Watcher::invalidateAll() {
-    for (auto repo : repositories) {
+    for (const auto &repo : repositories) {
         repo->invalidate();
     }
 }
 
 bool Watcher::shouldSynchronize() const {
-    for (auto repo : repositories) {
+    for (const auto &repo : repositories) {
         if (repo->isInvalidated()) {
             return true;
         }
@@ -82,7 +82,6 @@ void Watcher::run() {
         std::this_thread::sleep_for(std::chrono::milliseconds(pollingRate));
 
         if (shouldSynchronize()) {
-            BOOST_LOG_TRIVIAL(debug) << "Broadcasting synchronize message";
             synchronize();
         }
     }

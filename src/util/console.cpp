@@ -17,7 +17,7 @@ using namespace goliath::util;
 Console::Console(std::function<void(const boost::log::record_view &, boost::log::formatting_ostream &)> formatter,
                  std::string executableLocation, std::string projectTextFile,
                  boost::log::trivial::severity_level severityLevel = boost::log::trivial::severity_level::info)
-        : formatter(formatter) {
+        : formatter(std::move(formatter)) {
 
     std::string logoLine;
     std::ifstream logo(FoundationUtilities::executableToFile(executableLocation, "logo.txt"));
