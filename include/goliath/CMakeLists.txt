@@ -2,7 +2,6 @@ set(RELATIVE_INCLUDES
         foundation.h
         foundation/repositories/proto_repository.h
         foundation/repositories/repository.h
-        foundation/repositories/watcher.h
         foundation/util/console.h
         foundation/util/foundation_utilities.h
         foundation/handle.h
