@@ -81,6 +81,7 @@ Console::~Console() {
     for (int i = 0; i < 57; ++i) {
         std::cout << "─";
     }
+    std::cout << std::endl;
 }
 
 boost::log::trivial::severity_level goliath::util::parseSeverityLevel(const std::string &input,
