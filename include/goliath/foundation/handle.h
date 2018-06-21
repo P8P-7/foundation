@@ -12,7 +12,7 @@
 namespace goliath::handles {
     class Handle {
     public:
-        Handle(const size_t &handleId);
+        explicit Handle(const size_t &handleId);
         Handle(const Handle &other);
 
         /**
