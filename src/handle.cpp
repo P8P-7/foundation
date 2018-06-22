@@ -1,8 +1,6 @@
 #include <goliath/foundation/handle.h>
 #include <goliath/foundation/handle_error.h>
 
-#include <cstdlib>
-
 using namespace goliath::handles;
 
 Handle::Handle(const size_t &handle_id)
@@ -57,5 +55,9 @@ bool Handle::isLocked() {
 }
 
 bool Handle::isLocked(size_t ownerId) {
-    return isLocked() && getOwnerId() == ownerId;
+    std::lock_guard<std::mutex> lock(mutex);
+    if (!this->ownerId.is_initialized()) {
+        return false;
+    }
+    return this->ownerId.get() == ownerId;
 }
