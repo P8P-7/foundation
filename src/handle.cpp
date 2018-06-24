@@ -42,7 +42,7 @@ const size_t Handle::getOwnerId() {
         return ownerId.get();
     }
 
-    throw std::runtime_error("Owner is not set");
+    throw exceptions::HandleError(getId(), "Owner is not set");
 }
 
 const size_t Handle::getId() const {
@@ -56,8 +56,5 @@ bool Handle::isLocked() {
 
 bool Handle::isLocked(size_t ownerId) {
     std::lock_guard<std::mutex> lock(mutex);
-    if (!this->ownerId.is_initialized()) {
-        return false;
-    }
-    return this->ownerId.get() == ownerId;
+    return this->ownerId.is_initialized() && this->ownerId.get() == ownerId;
 }
